@@ -32,3 +32,22 @@ Scenario: can't find similar movies if we don't know director (sad path)
   When  I follow "Find Movies With Same Director"
   Then  I should be on the home page
   And   I should see "'Alien' has no director info"
+  
+Scenario: destroy works
+  When I am on the details page for "THX-1138"
+  And I press "Delete"
+  Then I should see "Movie 'THX-1138' deleted."
+  
+Scenario: go back to home page after details page
+  When I am on the details page for "THX-1138"
+  And I press "Back to movie list"
+  Then I should be on the home page
+  
+Scenario: add director
+  When I am on the RottenPotatoes home page
+  And I follow "More about Alien"
+  And I follow "Edit"
+  And I fill in "Director" with "ANEWDIRECTOR"
+  And I press "Update Movie Info"
+  Then I should be on the details page for "Alien"
+  And I should see "Alien was successfully updated."
